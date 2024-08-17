@@ -27,6 +27,9 @@ const Assignment =  ({ params }) => {
                             <div>
                                 Deadline: {data && data.deadline}
                             </div>
+                            <div>
+                                Assigned To: {data && data.desc}
+                            </div>
                         </div>
                         <Form />
                     </div>

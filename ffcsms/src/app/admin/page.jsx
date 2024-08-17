@@ -2,14 +2,16 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { data } from "../../../dummy data/data";
+import Modal from "./modal";
 
 export default function Page() {
 
     const [query, setQuery] = useState('');
+    const [open, setOpen] = useState(false);
 
     return (
         <div className="min-h-max">
-            Asign asignments
+            Assign asignments
             <div className="m-5 w-2/3 mx-auto">
                 <h1>Active Assignments:</h1>
                 <div>
@@ -27,18 +29,20 @@ export default function Page() {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.filter(item => item["Name of Assignment"].toLowerCase().includes(query)).map((item) => (
+                            {data.filter(item => item.Name.toLowerCase().includes(query)).map((item) => (
                                 <tr className="border-b text-center m-2" key={item.id}>
                                     <td>{item.id}</td>
-                                    <td>{item["Name of Assignment"]}</td>
-                                    <td>{item["status"]}</td>
-                                    <td>{item["deadline"]}</td>
+                                    <td>{item.Name}</td>
+                                    <td>{item.Status}</td>
+                                    <td>{item.deadline}</td>
                                     <td><Link href={`/assignment/${item.slug}`}>View</Link></td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
+                <button onClick={() => setOpen(true)} className='py-2 px-4 bg-pink-500 hover:bg-pink-600 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg'>Add Assignment</button>
+                {open && <Modal onClose={() => setOpen(false)}/>}
             </div>
         </div >
     );
